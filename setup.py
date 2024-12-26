@@ -17,17 +17,41 @@ def main():
     run_command("sudo apt-get update && sudo apt-get upgrade -y")
 
     # Install essential packages
-    print("Installing essential packages...")
-    run_command("sudo apt-get install -y git vim curl")
+    if not is_command_available("git"):
+        print("Installing git...")
+        run_command("sudo apt-get install -y git")
+    else:
+        print("Git is already installed.")
+
+    if not is_command_available("vim"):
+        print("Installing vim...")
+        run_command("sudo apt-get install -y vim")
+    else:
+        print("Vim is already installed.")
+
+    if not is_command_available("curl"):
+        print("Installing curl...")
+        run_command("sudo apt-get install -y curl")
+    else:
+        print("Curl is already installed.")
 
     # Install Python and pip
-    print("Installing Python and pip...")
-    run_command("sudo apt-get install -y python3 python3-pip")
+    if not is_command_available("python3"):
+        print("Installing Python...")
+        run_command("sudo apt-get install -y python3")
+    else:
+        print("Python is already installed.")
+
+    if not is_command_available("pip3"):
+        print("Installing pip...")
+        run_command("sudo apt-get install -y python3-pip")
+    else:
+        print("Pip is already installed.")
 
     # Configure Git
     print("Configuring Git...")
-    run_command("git config --global user.name 'Your Name'")
-    run_command("git config --global user.email 'your.email@example.com'")
+    run_command("git config --global user.name 'Puneeth'")
+    run_command("git config --global user.email 'Puneethr09@gmail.com'")
 
     # Check if Docker is installed
     if not is_command_available("docker"):
@@ -39,24 +63,39 @@ def main():
         print("Docker is already installed.")
 
     # Install build-essential for compiling software
-    print("Installing build-essential...")
-    run_command("sudo apt-get install -y build-essential")
+    if not is_command_available("gcc"):
+        print("Installing build-essential...")
+        run_command("sudo apt-get install -y build-essential")
+    else:
+        print("Build-essential is already installed.")
 
     # Install network tools
-    print("Installing network tools...")
-    run_command("sudo apt-get install -y net-tools")
+    if not is_command_available("ifconfig"):
+        print("Installing net-tools...")
+        run_command("sudo apt-get install -y net-tools")
+    else:
+        print("Net-tools are already installed.")
 
     # Install htop for system monitoring
-    print("Installing htop...")
-    run_command("sudo apt-get install -y htop")
+    if not is_command_available("htop"):
+        print("Installing htop...")
+        run_command("sudo apt-get install -y htop")
+    else:
+        print("Htop is already installed.")
 
     # Install tmux for terminal multiplexing
-    print("Installing tmux...")
-    run_command("sudo apt-get install -y tmux")
+    if not is_command_available("tmux"):
+        print("Installing tmux...")
+        run_command("sudo apt-get install -y tmux")
+    else:
+        print("Tmux is already installed.")
 
     # Install zsh and oh-my-zsh for an enhanced shell experience
-    print("Installing zsh...")
-    run_command("sudo apt-get install -y zsh")
+    if not is_command_available("zsh"):
+        print("Installing zsh...")
+        run_command("sudo apt-get install -y zsh")
+    else:
+        print("Zsh is already installed.")
 
     oh_my_zsh_dir = os.path.expanduser("~/.oh-my-zsh")
     if not os.path.exists(oh_my_zsh_dir):
@@ -66,30 +105,48 @@ def main():
         print("Oh My Zsh is already installed.")
 
     # Install Glances using apt
-    print("Installing Glances...")
-    run_command("sudo apt-get install -y glances")
+    if not is_command_available("glances"):
+        print("Installing Glances...")
+        run_command("sudo apt-get install -y glances")
+    else:
+        print("Glances is already installed.")
 
     # Install SSH server
-    print("Installing SSH server...")
-    run_command("sudo apt-get install -y openssh-server")
+    if not is_command_available("sshd"):
+        print("Installing SSH server...")
+        run_command("sudo apt-get install -y openssh-server")
+    else:
+        print("SSH server is already installed.")
 
     # Install VNC server
-    print("Installing VNC server...")
-    run_command("sudo apt-get install -y realvnc-vnc-server")
+    if not is_command_available("vncserver"):
+        print("Installing VNC server...")
+        run_command("sudo apt-get install -y realvnc-vnc-server")
+    else:
+        print("VNC server is already installed.")
 
     # Install UFW for firewall management
-    print("Installing UFW...")
-    run_command("sudo apt-get install -y ufw")
-    run_command("sudo ufw allow ssh")
-    run_command("sudo ufw enable")
+    if not is_command_available("ufw"):
+        print("Installing UFW...")
+        run_command("sudo apt-get install -y ufw")
+        run_command("sudo ufw allow ssh")
+        run_command("sudo ufw enable")
+    else:
+        print("UFW is already installed.")
 
     # Install FFmpeg for media processing
-    print("Installing FFmpeg...")
-    run_command("sudo apt-get install -y ffmpeg")
+    if not is_command_available("ffmpeg"):
+        print("Installing FFmpeg...")
+        run_command("sudo apt-get install -y ffmpeg")
+    else:
+        print("FFmpeg is already installed.")
 
     # Install Nginx web server
-    print("Installing Nginx...")
-    run_command("sudo apt-get install -y nginx")
+    if not is_command_available("nginx"):
+        print("Installing Nginx...")
+        run_command("sudo apt-get install -y nginx")
+    else:
+        print("Nginx is already installed.")
 
     # Add any other installations or configurations here
 
