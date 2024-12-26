@@ -154,17 +154,16 @@ if not os.path.exists(oh_my_zsh_dir):
 else:
     print("Oh My Zsh is already installed.")
 # Install zsh-autosuggestions plugin
-zsh_autosuggestions_dir = os.path.expanduser("${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions")
-if not os.path.exists(zsh_autosuggestions_dir) or not os.listdir(zsh_autosuggestions_dir):
+zsh_autosuggestions_dir = os.path.expanduser("~/.oh-my-zsh/custom/plugins/zsh-autosuggestions")
+if not os.path.exists(zsh_autosuggestions_dir):
     print("Installing zsh-autosuggestions...")
     run_command("git clone https://github.com/zsh-users/zsh-autosuggestions " + zsh_autosuggestions_dir)
 else:
-    print("zsh-autosuggestions is already installed or the directory is not empty.")
-    # Optionally, you can update the repository if it already exists
-    run_command(f"git -C {zsh_autosuggestions_dir} pull")
-    # Optionally, you can update the repository if it already exists
-    run_command(f"git -C {zsh_autosuggestions_dir} pull")
-# Update .zshrc to include the plugin
+    print("Updating zsh-autosuggestions...")
+    try:
+        run_command(f"cd {zsh_autosuggestions_dir} && git pull")
+    except subprocess.CalledProcessError:
+        print("Could not update zsh-autosuggestions, but continuing with existing installation")# Update .zshrc to include the plugin
 zshrc_path = os.path.expanduser("~/.zshrc")
 with open(zshrc_path, "a") as zshrc_file:
     zshrc_file.write("\nplugins=(git zsh-autosuggestions)\n")
