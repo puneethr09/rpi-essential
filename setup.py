@@ -65,9 +65,9 @@ def main():
     else:
         print("Oh My Zsh is already installed.")
 
-    # Install Glances for system monitoring
+    # Install Glances using apt
     print("Installing Glances...")
-    run_command("sudo pip3 install glances")
+    run_command("sudo apt-get install -y glances")
 
     # Install SSH server
     print("Installing SSH server...")
