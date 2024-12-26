@@ -19,6 +19,11 @@ def main():
     print("Installing Python and pip...")
     run_command("sudo apt-get install -y python3 python3-pip")
 
+    # Configure Git
+    print("Configuring Git...")
+    run_command("git config --global user.name 'Your Name'")
+    run_command("git config --global user.email 'your.email@example.com'")
+
     # Install Docker
     print("Installing Docker...")
     run_command("curl -fsSL https://get.docker.com -o get-docker.sh")
@@ -49,6 +54,28 @@ def main():
     # Install Glances for system monitoring
     print("Installing Glances...")
     run_command("sudo pip3 install glances")
+
+    # Install SSH server
+    print("Installing SSH server...")
+    run_command("sudo apt-get install -y openssh-server")
+
+    # Install VNC server
+    print("Installing VNC server...")
+    run_command("sudo apt-get install -y realvnc-vnc-server")
+
+    # Install UFW for firewall management
+    print("Installing UFW...")
+    run_command("sudo apt-get install -y ufw")
+    run_command("sudo ufw allow ssh")
+    run_command("sudo ufw enable")
+
+    # Install FFmpeg for media processing
+    print("Installing FFmpeg...")
+    run_command("sudo apt-get install -y ffmpeg")
+
+    # Install Nginx web server
+    print("Installing Nginx...")
+    run_command("sudo apt-get install -y nginx")
 
     # Add any other installations or configurations here
 
