@@ -6,6 +6,11 @@ def run_command(command):
     result = subprocess.run(command, shell=True, check=True, text=True)
     return result
 
+def is_command_available(command):
+    """Check if a command is available on the system."""
+    result = subprocess.run(f"command -v {command}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return result.returncode == 0
+
 def main():
     # Update and upgrade the system
     print("Updating and upgrading the system...")
@@ -24,11 +29,14 @@ def main():
     run_command("git config --global user.name 'Your Name'")
     run_command("git config --global user.email 'your.email@example.com'")
 
-    # Install Docker
-    print("Installing Docker...")
-    run_command("curl -fsSL https://get.docker.com -o get-docker.sh")
-    run_command("sh get-docker.sh")
-    run_command("sudo usermod -aG docker $USER")
+    # Check if Docker is installed
+    if not is_command_available("docker"):
+        print("Installing Docker...")
+        run_command("curl -fsSL https://get.docker.com -o get-docker.sh")
+        run_command("sh get-docker.sh")
+        run_command("sudo usermod -aG docker $USER")
+    else:
+        print("Docker is already installed.")
 
     # Install build-essential for compiling software
     print("Installing build-essential...")
@@ -56,6 +64,7 @@ def main():
         run_command("sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"")
     else:
         print("Oh My Zsh is already installed.")
+
     # Install Glances for system monitoring
     print("Installing Glances...")
     run_command("sudo pip3 install glances")
