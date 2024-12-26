@@ -47,10 +47,15 @@ def main():
     run_command("sudo apt-get install -y tmux")
 
     # Install zsh and oh-my-zsh for an enhanced shell experience
-    print("Installing zsh and oh-my-zsh...")
+    print("Installing zsh...")
     run_command("sudo apt-get install -y zsh")
-    run_command("sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"")
 
+    oh_my_zsh_dir = os.path.expanduser("~/.oh-my-zsh")
+    if not os.path.exists(oh_my_zsh_dir):
+        print("Installing Oh My Zsh...")
+        run_command("sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"")
+    else:
+        print("Oh My Zsh is already installed.")
     # Install Glances for system monitoring
     print("Installing Glances...")
     run_command("sudo pip3 install glances")
