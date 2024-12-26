@@ -162,6 +162,8 @@ else:
     print("zsh-autosuggestions is already installed or the directory is not empty.")
     # Optionally, you can update the repository if it already exists
     run_command(f"git -C {zsh_autosuggestions_dir} pull")
+    # Optionally, you can update the repository if it already exists
+    run_command(f"git -C {zsh_autosuggestions_dir} pull")
 # Update .zshrc to include the plugin
 zshrc_path = os.path.expanduser("~/.zshrc")
 with open(zshrc_path, "a") as zshrc_file:
