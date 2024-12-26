@@ -176,8 +176,7 @@ else:
 zshrc_path = os.path.expanduser("~/.zshrc")
 with open(zshrc_path, "a") as zshrc_file:
     zshrc_file.write("\nplugins=(git zsh-autosuggestions)\n")
-    zshrc_file.write("ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=lightgrey'\n")
+    zshrc_file.write("ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=yellow'\n")
     zshrc_file.write(
         "source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh\n"
     )
-    zshrc_file.write("source ~/.zshrc\n")
