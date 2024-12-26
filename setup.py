@@ -153,15 +153,15 @@ if not os.path.exists(oh_my_zsh_dir):
     run_command("sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"")
 else:
     print("Oh My Zsh is already installed.")
-
 # Install zsh-autosuggestions plugin
 zsh_autosuggestions_dir = os.path.expanduser("${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions")
-if not os.path.exists(zsh_autosuggestions_dir):
+if not os.path.exists(zsh_autosuggestions_dir) or not os.listdir(zsh_autosuggestions_dir):
     print("Installing zsh-autosuggestions...")
     run_command("git clone https://github.com/zsh-users/zsh-autosuggestions " + zsh_autosuggestions_dir)
 else:
-    print("zsh-autosuggestions is already installed.")
-
+    print("zsh-autosuggestions is already installed or the directory is not empty.")
+    # Optionally, you can update the repository if it already exists
+    run_command(f"git -C {zsh_autosuggestions_dir} pull")
 # Update .zshrc to include the plugin
 zshrc_path = os.path.expanduser("~/.zshrc")
 with open(zshrc_path, "a") as zshrc_file:
