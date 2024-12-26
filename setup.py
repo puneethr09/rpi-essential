@@ -1,15 +1,23 @@
 import os
 import subprocess
 
+
 def run_command(command):
     """Run a shell command."""
     result = subprocess.run(command, shell=True, check=True, text=True)
     return result
 
+
 def is_command_available(command):
     """Check if a command is available on the system."""
-    result = subprocess.run(f"command -v {command}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    result = subprocess.run(
+        f"command -v {command}",
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
     return result.returncode == 0
+
 
 def main():
     # Update and upgrade the system
@@ -90,33 +98,12 @@ def main():
     else:
         print("Tmux is already installed.")
 
-    # Install zsh and oh-my-zsh for an enhanced shell experience
-    if not is_command_available("zsh"):
-        print("Installing zsh...")
-        run_command("sudo apt-get install -y zsh")
-    else:
-        print("Zsh is already installed.")
-
-    oh_my_zsh_dir = os.path.expanduser("~/.oh-my-zsh")
-    if not os.path.exists(oh_my_zsh_dir):
-        print("Installing Oh My Zsh...")
-        run_command("sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"")
-    else:
-        print("Oh My Zsh is already installed.")
-
     # Install Glances using apt
     if not is_command_available("glances"):
         print("Installing Glances...")
         run_command("sudo apt-get install -y glances")
     else:
         print("Glances is already installed.")
-
-    # Install SSH server
-    if not is_command_available("sshd"):
-        print("Installing SSH server...")
-        run_command("sudo apt-get install -y openssh-server")
-    else:
-        print("SSH server is already installed.")
 
     # Install VNC server
     if not is_command_available("vncserver"):
@@ -150,5 +137,35 @@ def main():
 
     # Add any other installations or configurations here
 
+
 if __name__ == "__main__":
     main()
+
+# Install zsh and oh-my-zsh for an enhanced shell experience
+if not is_command_available("zsh"):
+    print("Installing zsh...")
+    run_command("sudo apt-get install -y zsh")
+else:
+    print("Zsh is already installed.")
+
+oh_my_zsh_dir = os.path.expanduser("~/.oh-my-zsh")
+if not os.path.exists(oh_my_zsh_dir):
+    print("Installing Oh My Zsh...")
+    run_command("sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"")
+else:
+    print("Oh My Zsh is already installed.")
+
+# Install zsh-autosuggestions plugin
+zsh_autosuggestions_dir = os.path.expanduser("${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions")
+if not os.path.exists(zsh_autosuggestions_dir):
+    print("Installing zsh-autosuggestions...")
+    run_command("git clone https://github.com/zsh-users/zsh-autosuggestions " + zsh_autosuggestions_dir)
+else:
+    print("zsh-autosuggestions is already installed.")
+
+# Update .zshrc to include the plugin
+zshrc_path = os.path.expanduser("~/.zshrc")
+with open(zshrc_path, "a") as zshrc_file:
+    zshrc_file.write("\nplugins=(git zsh-autosuggestions)\n")
+    zshrc_file.write("ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'\n")
+    zshrc_file.write("source ~/.zshrc\n")
