@@ -173,10 +173,27 @@ else:
         print(
             "Could not update zsh-autosuggestions, but continuing with existing installation"
         )  # Update .zshrc to include the plugin
+
+def check_line_in_file(filename, line):
+    """Check if a line exists in a file."""
+    if os.path.exists(filename):
+        with open(filename, 'r') as file:
+            return line in file.read()
+    return False
+
+# Update .zshrc to include the plugin
 zshrc_path = os.path.expanduser("~/.zshrc")
+content_to_add = [
+    "plugins=(git zsh-autosuggestions)",
+    "ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=yellow'",
+    "source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+]
+
+print("Configuring .zshrc...")
 with open(zshrc_path, "a") as zshrc_file:
-    zshrc_file.write("\nplugins=(git zsh-autosuggestions)\n")
-    zshrc_file.write("ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=yellow'\n")
-    zshrc_file.write(
-        "source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh\n"
-    )
+    for line in content_to_add:
+        if not check_line_in_file(zshrc_path, line):
+            zshrc_file.write(f"\n{line}")
+            print(f"Added configuration: {line}")
+        else:
+            print(f"Configuration already exists: {line}")
